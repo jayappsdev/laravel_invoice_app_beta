@@ -11,8 +11,8 @@ class InvoiceController extends Controller
 {
     public function get_all_invoice() 
     {
-        $invoices = Invoice::with('customer')->orderBy('id', 'DESC')->get();
-       
+        $invoices = Invoice::with('customer')->orderBy('id', 'DESC')->paginate(3);
+
         return response()->json([
             'invoices' => $invoices
         ],200);
@@ -25,7 +25,7 @@ class InvoiceController extends Controller
         {
             $invoices = Invoice::with('customer')
                 ->where('id','LIKE',"%$search%")
-                ->get();
+                ->paginate(3);
             return response()->json([
                 'invoices' => $invoices
             ],200);

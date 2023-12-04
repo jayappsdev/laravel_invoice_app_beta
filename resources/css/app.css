@@ -8,7 +8,7 @@
 
 body {
     
-    background: #0f0c25;
+    background: #ffffff;
     color:#FFF;
 
 }
@@ -231,7 +231,7 @@ ul {
     border-radius: 4px;
     cursor: pointer;
     position: relative;
-    color: #FFF;
+    color: #1b1b1b;
     background: none;
 }
 
@@ -604,3 +604,4 @@ ul {
 .grand__total--items span {
     font-size: 26px;
 }
+

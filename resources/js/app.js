@@ -8,10 +8,8 @@ import router from './router/index.js';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
 
-/* import font awesome icon component */
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
-/* import specific icons */
 import { faCcVisa, faCcStripe, faCcMastercard, faCcPaypal } from '@fortawesome/free-brands-svg-icons'
 
 library.add(faCcVisa, faCcMastercard, faCcStripe, faCcPaypal)

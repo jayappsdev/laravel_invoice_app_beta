@@ -2,15 +2,15 @@
     import { onMounted, ref } from 'vue';
     import router from '../../router';
 
-    let form = ref([]);
-    let allcustomers = ref([]);
-    let customer_name = ref([]);
-    let item = ref([]);
-    let listCard = ref([]);
-    let listproducts = ref([]);
+    let form = ref([])
+    let allcustomers = ref([])
+    let customer_name = ref([])
+    let item = ref([])
+    let listCard = ref([])
+    let listproducts = ref([])
 
-    const showModal = ref(false);
-    const hideModal = ref(true);
+    const showModal = ref(false)
+    const hideModal = ref(true)
 
     onMounted(async () => {
         indexForm()
@@ -19,15 +19,13 @@
     })
 
     const indexForm = async () => {
-        let response = await axios.get('/api/create_invoice');
-        //console.log('form', response.data);
-        form.value = response.data;
+        let response = await axios.get('/api/create_invoice')
+        form.value = response.data
     }
 
     const getAllCustomers = async () => {
-        let response = await axios.get('/api/customers');
-        //console.log('response', response);
-        allcustomers.value = response.data.customers;
+        let response = await axios.get('/api/customers')
+        allcustomers.value = response.data.customers
     }
 
     const addCart = (item) => {
@@ -38,66 +36,65 @@
             unit_price: item.unit_price,
             quantity: item.quantity,
         }
-        listCard.value.push(itemcart);
-        closeModal();
+        listCard.value.push(itemcart)
+        closeModel()
     }
 
     const removeItem = (i) => {
-        listCard.value.splice(i,1);
+        listCard.value.splice(i,1)
     }
 
     const openModel = () => {
-        showModal.value = !showModal.value;
+        showModal.value = !showModal.value
     }
 
-    const closeModal = () => {
-        showModal.value = !hideModal.value;
+    const closeModel = () => {
+        showModal.value = !hideModal.value
     }
 
     const getproducts = async () => {
-        let response = await axios.get('/api/products');
-        console.log('products', response);
-        listproducts.value = response.data.products;
+        let response = await axios.get('/api/products')
+        console.log('products', response)
+        listproducts.value = response.data.products
     }
 
     const SubTotal = () => {
-        let total = 0;
+        let total = 0
         listCard.value.map((data)=>{
-            total = total + (data.quantity*data.unit_price);
+            total = total + (data.quantity*data.unit_price)
         })
-        return total;
+        return total
     }
 
     const Total = () => {
-        return SubTotal() - form.value.discount;
+        return SubTotal() - form.value.discount
     }
 
     const onSave = () => {
 
         if(listCard.value.length >= 1) {
-            let subtotal = 0;
-            subtotal = SubTotal();
+            let subtotal = 0
+            subtotal = SubTotal()
 
-            let total = 0;
-            total = Total();
+            let total = 0
+            total = Total()
 
-            const formData = new FormData();
-            formData.append('invoice_item', JSON.stringify(listCard.value));
-            formData.append('customer_name', customer_name.value);
-            formData.append('date', form.value.date);
-            formData.append('due_date', form.value.due_date);
-            formData.append('number', form.value.number);
-            formData.append('reference', form.value.reference);
-            formData.append('discount', form.value.discount);
-            formData.append('subtotal', subtotal);
-            formData.append('total', total);
-            formData.append('terms_and_conditions', form.value.terms_and_conditions);
+            const formData = new FormData()
+            formData.append('invoice_item', JSON.stringify(listCard.value))
+            formData.append('customer_name', customer_name.value)
+            formData.append('date', form.value.date)
+            formData.append('due_date', form.value.due_date)
+            formData.append('number', form.value.number)
+            formData.append('reference', form.value.reference)
+            formData.append('discount', form.value.discount)
+            formData.append('subtotal', subtotal)
+            formData.append('total', total)
+            formData.append('terms_and_conditions', form.value.terms_and_conditions)
 
-            axios.post("/api/add_invoice", formData);
-            listCard.value = [];
-            router.push('/');            
+            axios.post("/api/add_invoice", formData)
+            listCard.value = []
+            router.push('/')           
         }
-
     }
 
 </script>
@@ -210,7 +207,7 @@
     <!--==================== add modal items ====================-->
     <div class="modal main__modal " :class="{ show: showModal }">
         <div class="modal__content">
-            <span class="modal__close btn__close--modal" @click="closeModal()">×</span>
+            <span class="modal__close btn__close--modal" @click="closeModel()">×</span>
             <h3 class="modal__title">Add Item</h3>
             <hr><br>
             <div class="modal__items">
@@ -226,7 +223,7 @@
             </div>
             <br><hr>
             <div class="model__footer">
-                <button class="btn btn-light mr-2 btn__close--modal" @click="closeModal()">
+                <button class="btn btn-light mr-2 btn__close--modal" @click="closeModel()">
                     Cancel
                 </button>
                 <button class="btn btn-light btn__close--modal ">Save</button>

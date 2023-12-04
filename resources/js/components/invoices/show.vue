@@ -2,7 +2,7 @@
     import { onMounted, ref } from 'vue';
     import router from '../../router';
 
-    let form = ref({ id:'' });
+    let form = ref({ id:'' })
 
     const props = defineProps({
         id:{
@@ -16,14 +16,14 @@
     })
 
     const getInvoice = async () => {
-        let response = await axios.get(`/api/show_invoice/${props.id}`);
-        console.log('form', response.data.invoice);
-        form.value = response.data.invoice;
+        let response = await axios.get(`/api/show_invoice/${props.id}`)
+        console.log('form', response.data.invoice)
+        form.value = response.data.invoice
     }
 
     const print = () => {
-        window.print();
-        router.push('/').catch(() => {});
+        window.print()
+        router.push('/').catch(() => {})
     }
 
 </script>
